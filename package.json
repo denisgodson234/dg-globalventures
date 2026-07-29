@@ -1,0 +1,29 @@
+{
+  "name": "denis-godson-global-ventures",
+  "version": "5.0.0",
+  "description": "Denis Godson Global Ventures - Branding, Digital Marketing and Graphic Design Platform",
+  "main": "server.js",
+
+  "scripts": {
+    "start": "node server.js"
+  },
+
+  "keywords": [
+    "branding",
+    "digital marketing",
+    "graphic design",
+    "business",
+    "AI assistant"
+  ],
+
+  "author": "Denis Godson Global Ventures",
+
+  "license": "MIT",
+
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "openai": "^4.52.7"
+  }
+}
