@@ -1,62 +1,89 @@
+/* ======================================
+   DENIS GODSON GLOBAL VENTURES
+   PREMIUM VERSION 5.1 STYLE
+   ====================================== */
+
+
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Poppins", Arial, sans-serif;
-    scroll-behavior: smooth;
+
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Poppins", Arial, sans-serif;
+    scroll-behavior:smooth;
+
 }
+
 
 
 body {
-    background: #050505;
-    color: white;
-    overflow-x: hidden;
+
+    background:#050505;
+    color:white;
+    overflow-x:hidden;
+
 }
+
+
+
+a {
+
+    text-decoration:none;
+
+}
+
+
+
 
 
 /* =====================
-   LOADING SCREEN
+LOADING SCREEN
 ===================== */
 
+
 .loader {
-    position: fixed;
-    width: 100%;
-    height: 100vh;
-    background: #050505;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    animation: hideLoader 3s forwards;
+
+    position:fixed;
+    width:100%;
+    height:100vh;
+    background:#050505;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+    animation:hideLoader 3s forwards;
+
 }
+
 
 
 .loader img {
-    width: 120px;
-    animation: rotateLogo 2s infinite;
+
+    width:120px;
+    animation:pulse 2s infinite;
+
 }
+
 
 
 .loader h2 {
-    margin-top: 20px;
-    color: #00ff88;
-    text-align: center;
+
+    margin-top:20px;
+    color:#00ff88;
+    text-align:center;
+
 }
 
 
-@keyframes rotateLogo {
 
-    0% {
-        transform: scale(1);
-    }
+
+@keyframes pulse {
 
     50% {
-        transform: scale(1.1);
-    }
 
-    100% {
-        transform: scale(1);
+        transform:scale(1.1);
+
     }
 
 }
@@ -66,14 +93,17 @@ body {
 @keyframes hideLoader {
 
     0%,80% {
+
         opacity:1;
-        visibility:visible;
+
     }
 
 
     100% {
+
         opacity:0;
         visibility:hidden;
+
     }
 
 }
@@ -81,16 +111,19 @@ body {
 
 
 
+
+
+
 /* =====================
- NAVBAR
+NAVBAR
 ===================== */
 
 
 header {
 
-    position: fixed;
-    top:0;
+    position:fixed;
     width:100%;
+    top:0;
     z-index:1000;
 
 }
@@ -103,8 +136,8 @@ header {
     justify-content:space-between;
     align-items:center;
     padding:20px 8%;
-    background:rgba(0,0,0,0.8);
-    backdrop-filter:blur(10px);
+    background:rgba(0,0,0,.85);
+    backdrop-filter:blur(12px);
 
 }
 
@@ -119,10 +152,11 @@ header {
 }
 
 
+
 .logo-area img {
 
-    width:50px;
-    height:50px;
+    width:55px;
+    height:55px;
     border-radius:50%;
 
 }
@@ -150,7 +184,6 @@ header {
 
 .nav-links a {
 
-    text-decoration:none;
     color:white;
     transition:.3s;
 
@@ -170,6 +203,7 @@ header {
 
     display:none;
     font-size:30px;
+    cursor:pointer;
 
 }
 
@@ -178,8 +212,10 @@ header {
 
 
 
+
+
 /* =====================
- HERO
+HERO
 ===================== */
 
 
@@ -189,12 +225,13 @@ header {
     display:flex;
     align-items:center;
     padding:120px 8%;
+
     background:
     linear-gradient(
-    rgba(0,0,0,.7),
-    rgba(0,0,0,.9)
+    rgba(0,0,0,.75),
+    rgba(0,0,0,.95)
     ),
-    radial-gradient(circle,#003d2b,#000);
+    radial-gradient(circle,#004d33,#000);
 
 }
 
@@ -202,7 +239,7 @@ header {
 
 .hero-content {
 
-    max-width:800px;
+    max-width:850px;
 
 }
 
@@ -216,6 +253,7 @@ header {
 }
 
 
+
 .hero h1 span {
 
     color:#00ff88;
@@ -227,8 +265,8 @@ header {
 .hero h3 {
 
     margin:25px 0;
-    font-size:25px;
     color:#ddd;
+    font-size:25px;
 
 }
 
@@ -236,11 +274,13 @@ header {
 
 .hero p {
 
-    font-size:18px;
     color:#bbb;
     line-height:1.8;
+    font-size:18px;
 
 }
+
+
 
 
 
@@ -252,12 +292,13 @@ header {
 
 
 
+
+
 .btn {
 
     display:inline-block;
     padding:15px 35px;
     border-radius:40px;
-    text-decoration:none;
     margin-right:15px;
     transition:.3s;
 
@@ -268,7 +309,7 @@ header {
 .primary {
 
     background:#00ff88;
-    color:#000;
+    color:black;
 
 }
 
@@ -295,8 +336,10 @@ header {
 
 
 
+
+
 /* =====================
- SECTIONS
+SECTIONS
 ===================== */
 
 
@@ -311,9 +354,9 @@ section {
 .section-title {
 
     text-align:center;
-    font-size:40px;
-    margin-bottom:50px;
     color:#00ff88;
+    font-size:40px;
+    margin-bottom:40px;
 
 }
 
@@ -323,7 +366,9 @@ section {
 
 
 
-/* SERVICES */
+/* =====================
+SERVICES
+===================== */
 
 
 .service-container {
@@ -380,7 +425,9 @@ section {
 
 
 
-/* ABOUT */
+/* =====================
+ABOUT
+===================== */
 
 
 .about {
@@ -390,11 +437,12 @@ section {
 }
 
 
+
 .about-content {
 
     max-width:900px;
-    margin:auto;
     text-align:center;
+    margin:auto;
 
 }
 
@@ -424,14 +472,15 @@ section {
 
 
 
-/* MARKETPLACE */
+/* =====================
+MARKETPLACE
+===================== */
 
 
 .marketplace {
 
     text-align:center;
-    background:
-    linear-gradient(45deg,#001f15,#000);
+    background:linear-gradient(45deg,#001f15,#000);
 
 }
 
@@ -439,8 +488,8 @@ section {
 
 .marketplace h2 {
 
-    font-size:40px;
     color:#00ff88;
+    font-size:40px;
 
 }
 
@@ -448,8 +497,8 @@ section {
 
 .marketplace p {
 
-    margin:25px auto;
     max-width:700px;
+    margin:25px auto;
     color:#ddd;
     line-height:1.8;
 
@@ -462,7 +511,9 @@ section {
 
 
 
-/* PORTFOLIO */
+/* =====================
+PORTFOLIO
+===================== */
 
 
 .portfolio-grid {
@@ -498,61 +549,107 @@ section {
 
 
 
-/* AI FAQ */
+
+/* =====================
+PREMIUM AI CHATBOT
+===================== */
 
 
-.ai-box {
+.chat-container {
 
-    max-width:700px;
+    max-width:750px;
     margin:auto;
-    background:#111;
-    padding:30px;
+    background:#101010;
+    border-radius:25px;
+    padding:25px;
+    border:1px solid #222;
+    box-shadow:0 0 30px rgba(0,255,136,.15);
+
+}
+
+
+
+.chat-messages {
+
+    height:350px;
+    overflow-y:auto;
+    padding:15px;
+
+}
+
+
+
+.ai-message,
+.user-message {
+
+    max-width:80%;
+    padding:15px 20px;
+    margin:15px 0;
     border-radius:20px;
+    line-height:1.6;
 
 }
 
 
 
-#ai-response {
+.ai-message {
 
-    min-height:120px;
-    background:#050505;
-    padding:20px;
-    border-radius:15px;
+    background:#151515;
+    border:1px solid #00ff88;
     color:#ddd;
-    margin-bottom:20px;
 
 }
 
 
 
-.question-box {
+.user-message {
+
+    background:#00ff88;
+    color:black;
+    margin-left:auto;
+
+}
+
+
+
+.chat-input-area {
 
     display:flex;
     gap:10px;
+    margin-top:20px;
 
 }
 
 
 
-.question-box input {
+.chat-input-area input {
 
     flex:1;
-    padding:15px;
+    padding:15px 20px;
     border-radius:30px;
     border:none;
+    outline:none;
 
 }
 
 
 
-.question-box button {
+.chat-input-area button {
 
-    padding:15px 25px;
+    padding:15px 30px;
     border:none;
     border-radius:30px;
     background:#00ff88;
     cursor:pointer;
+    font-weight:bold;
+
+}
+
+
+
+.chat-input-area button:hover {
+
+    transform:scale(1.05);
 
 }
 
@@ -563,7 +660,9 @@ section {
 
 
 
-/* CONTACT */
+/* =====================
+CONTACT
+===================== */
 
 
 .contact {
@@ -587,11 +686,10 @@ section {
 
     display:inline-block;
     margin-top:30px;
-    background:#25D366;
-    color:white;
     padding:18px 35px;
     border-radius:40px;
-    text-decoration:none;
+    background:#25D366;
+    color:white;
 
 }
 
@@ -602,7 +700,9 @@ section {
 
 
 
-/* FOOTER */
+/* =====================
+FOOTER
+===================== */
 
 
 footer {
@@ -636,7 +736,10 @@ footer p {
 
 
 
-/* MOBILE RESPONSIVE */
+
+/* =====================
+MOBILE DESIGN
+===================== */
 
 
 @media(max-width:900px){
@@ -646,10 +749,10 @@ footer p {
 
     display:none;
     flex-direction:column;
-    background:#000;
     position:absolute;
     top:80px;
     right:0;
+    background:#000;
     width:250px;
     padding:30px;
 
@@ -689,9 +792,17 @@ footer p {
 
 
 
-.question-box {
+.chat-input-area {
 
     flex-direction:column;
+
+}
+
+
+
+.chat-input-area button {
+
+    width:100%;
 
 }
 

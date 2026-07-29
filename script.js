@@ -1,21 +1,23 @@
 // ======================================
 // DENIS GODSON GLOBAL VENTURES
-// PREMIUM VERSION 5 SCRIPT
-// REAL AI FAQ CONNECTION
+// PREMIUM VERSION 5.1 SCRIPT
+// GROQ AI CHATBOT VERSION
 // ======================================
+
 
 
 // ===============================
 // MOBILE MENU
 // ===============================
 
+
 const menuBtn = document.querySelector(".menu-btn");
 const navLinks = document.querySelector(".nav-links");
 
 
-if (menuBtn) {
+if(menuBtn){
 
-    menuBtn.addEventListener("click", () => {
+    menuBtn.addEventListener("click",()=>{
 
         navLinks.classList.toggle("active");
 
@@ -25,15 +27,16 @@ if (menuBtn) {
 
 
 
-// Close menu after clicking a link
 
-document.querySelectorAll(".nav-links a").forEach(link => {
+document.querySelectorAll(".nav-links a").forEach(link=>{
 
-    link.addEventListener("click", () => {
+
+    link.addEventListener("click",()=>{
 
         navLinks.classList.remove("active");
 
     });
+
 
 });
 
@@ -42,29 +45,134 @@ document.querySelectorAll(".nav-links a").forEach(link => {
 
 
 
+
 // ===============================
-// AI FAQ ASSISTANT
-// CONNECT TO /ask ROUTE
+// AI CHATBOT
 // ===============================
 
 
-async function askAI() {
-
-
-    const questionInput = document.getElementById("user-question");
-
-    const responseBox = document.getElementById("ai-response");
-
-
-    const question = questionInput.value.trim();
+const chatMessages = document.getElementById("chat-messages");
+const questionInput = document.getElementById("user-question");
 
 
 
-    if (question === "") {
 
 
-        responseBox.innerHTML =
-        "Please enter a question first.";
+// Add message to chat
+
+
+function addMessage(message,type){
+
+
+    const div = document.createElement("div");
+
+
+    if(type === "user"){
+
+        div.className = "user-message";
+
+    }
+
+    else {
+
+        div.className = "ai-message";
+
+    }
+
+
+
+    div.innerHTML = message;
+
+
+    chatMessages.appendChild(div);
+
+
+
+    chatMessages.scrollTop =
+    chatMessages.scrollHeight;
+
+
+    return div;
+
+
+}
+
+
+
+
+
+
+
+
+// Typing animation
+
+
+function showTyping(){
+
+
+    const typing = document.createElement("div");
+
+
+    typing.className = "ai-message";
+
+
+    typing.id = "typing";
+
+
+    typing.innerHTML =
+    "DG Global AI is typing...";
+
+
+    chatMessages.appendChild(typing);
+
+
+
+    chatMessages.scrollTop =
+    chatMessages.scrollHeight;
+
+
+
+}
+
+
+
+
+function removeTyping(){
+
+
+    const typing =
+    document.getElementById("typing");
+
+
+
+    if(typing){
+
+        typing.remove();
+
+    }
+
+
+}
+
+
+
+
+
+
+
+
+// Send question to Groq AI
+
+
+async function askAI(){
+
+
+    const question =
+    questionInput.value.trim();
+
+
+
+    if(question === ""){
 
 
         return;
@@ -73,8 +181,21 @@ async function askAI() {
 
 
 
-    responseBox.innerHTML =
-    "DG Global AI Assistant is thinking...";
+
+
+    // Show user message
+
+
+    addMessage(question,"user");
+
+
+
+    questionInput.value = "";
+
+
+
+    showTyping();
+
 
 
 
@@ -82,22 +203,27 @@ async function askAI() {
     try {
 
 
-        const response = await fetch("/ask", {
+
+        const response = await fetch("/ask",{
 
 
-            method: "POST",
+            method:"POST",
 
 
-            headers: {
+            headers:{
 
-                "Content-Type": "application/json"
+
+                "Content-Type":"application/json"
+
 
             },
 
 
-            body: JSON.stringify({
+            body:JSON.stringify({
 
-                question: question
+
+                question:question
+
 
             })
 
@@ -108,31 +234,84 @@ async function askAI() {
 
 
 
-        const data = await response.json();
+
+        const data =
+        await response.json();
 
 
 
 
-        responseBox.innerHTML = data.answer;
+        removeTyping();
 
 
 
-    } catch (error) {
+
+        addMessage(
+            data.answer,
+            "ai"
+        );
+
+
+
+
+
+    }
+
+
+    catch(error){
+
 
 
         console.log(error);
 
 
 
-        responseBox.innerHTML =
-        "Sorry, I cannot connect to the AI assistant right now. Please contact us on WhatsApp: +2347069575671";
+        removeTyping();
+
+
+
+        addMessage(
+
+        "Sorry, I cannot connect to DG Global AI right now. Please contact us on WhatsApp: +2347069575671",
+
+        "ai"
+
+        );
 
 
     }
 
 
 
-    questionInput.value = "";
+}
+
+
+
+
+
+
+
+
+// Press Enter to send
+
+
+if(questionInput){
+
+
+    questionInput.addEventListener("keypress",(event)=>{
+
+
+        if(event.key === "Enter"){
+
+
+            askAI();
+
+
+        }
+
+
+    });
+
 
 }
 
@@ -148,18 +327,21 @@ async function askAI() {
 // ===============================
 
 
-const sections = document.querySelectorAll("section");
+const sections =
+document.querySelectorAll("section");
 
 
 
-sections.forEach(section => {
+sections.forEach(section=>{
 
 
-    section.style.opacity = "0";
+    section.style.opacity="0";
 
-    section.style.transform = "translateY(40px)";
+    section.style.transform=
+    "translateY(40px)";
 
-    section.style.transition = "0.8s ease";
+    section.style.transition=
+    "0.8s ease";
 
 
 });
@@ -167,14 +349,16 @@ sections.forEach(section => {
 
 
 
-window.addEventListener("scroll", () => {
+
+window.addEventListener("scroll",()=>{
 
 
-    sections.forEach(section => {
+    sections.forEach(section=>{
 
 
         const position =
         section.getBoundingClientRect().top;
+
 
 
         const screenHeight =
@@ -182,12 +366,14 @@ window.addEventListener("scroll", () => {
 
 
 
-        if (position < screenHeight - 100) {
+
+        if(position < screenHeight - 100){
 
 
-            section.style.opacity = "1";
+            section.style.opacity="1";
 
-            section.style.transform =
+
+            section.style.transform=
             "translateY(0)";
 
 
@@ -204,23 +390,27 @@ window.addEventListener("scroll", () => {
 
 
 
+
+
 // ===============================
-// AUTOMATIC YEAR UPDATE
+// FOOTER YEAR UPDATE
 // ===============================
 
 
-const year = new Date().getFullYear();
-
-
-const footerText = document.querySelector("footer p");
+const year =
+new Date().getFullYear();
 
 
 
-if (footerText) {
+const footer =
+document.querySelector("footer p");
 
 
-    footerText.innerHTML =
+
+if(footer){
+
+
+    footer.innerHTML =
     `© ${year} Denis Godson Global Ventures. All Rights Reserved.`;
-
 
 }
