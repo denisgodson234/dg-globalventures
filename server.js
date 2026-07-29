@@ -1,6 +1,7 @@
 // ======================================
 // DENIS GODSON GLOBAL VENTURES
 // PREMIUM VERSION 5 SERVER
+// GROQ AI VERSION
 // ======================================
 
 
@@ -8,7 +9,7 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 
-const OpenAI = require("openai");
+const Groq = require("groq-sdk");
 
 const path = require("path");
 
@@ -26,20 +27,23 @@ app.use(express.json());
 
 
 // Serve website files from main folder
+
 app.use(express.static(__dirname));
 
 
 
 
 // ===============================
-// AI CONFIGURATION
+// GROQ AI CONFIGURATION
 // ===============================
 
-const client = new OpenAI({
+const client = new Groq({
 
-    apiKey: process.env.OPENAI_API_KEY
+    apiKey: process.env.GROQ_API_KEY
 
 });
+
+
 
 
 
@@ -50,6 +54,7 @@ const client = new OpenAI({
 
 app.post("/ask", async (req, res) => {
 
+
     try {
 
 
@@ -59,21 +64,32 @@ app.post("/ask", async (req, res) => {
 
         if (!question) {
 
+
             return res.json({
 
                 answer: "Please enter a question."
 
             });
 
+
         }
 
 
 
-        const response = await client.responses.create({
 
-            model: "gpt-4.1-mini",
+        const chatCompletion = await client.chat.completions.create({
 
-            input: `
+
+            model: "llama-3.1-8b-instant",
+
+
+            messages: [
+
+                {
+
+                    role: "system",
+
+                    content: `
 
 You are DG Global AI Assistant for Denis Godson Global Ventures.
 
@@ -97,26 +113,49 @@ WhatsApp Business:
 +2347069575671
 
 
-Your job:
-Answer customers professionally.
-Be friendly, clear and helpful.
-Help visitors understand the business services.
-
-
-Customer Question:
-${question}
+Rules:
+- Answer customers professionally.
+- Be friendly and helpful.
+- Keep answers clear and simple.
+- Explain services and guide customers to contact WhatsApp when needed.
 
 `
 
+                },
+
+
+                {
+
+                    role: "user",
+
+                    content: question
+
+                }
+
+
+            ]
+
+
+
         });
+
+
+
+
+
+        const answer =
+        chatCompletion.choices[0].message.content;
+
 
 
 
         res.json({
 
-            answer: response.output_text
+            answer: answer
 
         });
+
+
 
 
 
@@ -130,7 +169,7 @@ ${question}
         res.status(500).json({
 
             answer:
-            "Sorry, the AI assistant is currently unavailable. Please contact us on WhatsApp: +2347069575671"
+            "Sorry, the AI assistant is currently unavailable. Please contact Denis Godson Global Ventures on WhatsApp: +2347069575671"
 
         });
 
@@ -143,17 +182,28 @@ ${question}
 
 
 
+
+
+
+
 // ===============================
 // HOME PAGE
 // ===============================
 
+
 app.get("/", (req, res) => {
+
 
     res.sendFile(
         path.join(__dirname, "index.html")
     );
 
+
 });
+
+
+
+
 
 
 
@@ -161,6 +211,7 @@ app.get("/", (req, res) => {
 // ===============================
 // SERVER START
 // ===============================
+
 
 const PORT = process.env.PORT || 3000;
 

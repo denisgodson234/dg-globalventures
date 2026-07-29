@@ -1,7 +1,8 @@
 {
   "name": "denis-godson-global-ventures",
   "version": "5.0.0",
-  "description": "Denis Godson Global Ventures - Branding, Digital Marketing and Graphic Design Platform",
+  "description": "Denis Godson Global Ventures - Branding, Digital Marketing, Graphic Design and AI Business Assistant Platform",
+
   "main": "server.js",
 
   "scripts": {
@@ -13,7 +14,8 @@
     "digital marketing",
     "graphic design",
     "business",
-    "AI assistant"
+    "AI assistant",
+    "groq"
   ],
 
   "author": "Denis Godson Global Ventures",
@@ -24,6 +26,6 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "openai": "^4.52.7"
+    "groq-sdk": "^0.7.0"
   }
 }
