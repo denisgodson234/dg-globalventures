@@ -1,7 +1,7 @@
 // ======================================
 // DENIS GODSON GLOBAL VENTURES
-// PREMIUM VERSION 5.1 SCRIPT
-// GROQ AI CHATBOT VERSION
+// PREMIUM VERSION 5.2 SCRIPT
+// GROQ AI + WHATSAPP REQUEST SYSTEM
 // ======================================
 
 
@@ -27,16 +27,13 @@ if(menuBtn){
 
 
 
-
 document.querySelectorAll(".nav-links a").forEach(link=>{
-
 
     link.addEventListener("click",()=>{
 
         navLinks.classList.remove("active");
 
     });
-
 
 });
 
@@ -46,45 +43,50 @@ document.querySelectorAll(".nav-links a").forEach(link=>{
 
 
 
+
 // ===============================
-// AI CHATBOT
+// AI CHATBOT SYSTEM
 // ===============================
 
 
-const chatMessages = document.getElementById("chat-messages");
-const questionInput = document.getElementById("user-question");
+const chatMessages =
+document.getElementById("chat-messages");
+
+
+const questionInput =
+document.getElementById("user-question");
 
 
 
-
-
-// Add message to chat
 
 
 function addMessage(message,type){
 
 
-    const div = document.createElement("div");
+    const messageBox =
+    document.createElement("div");
+
 
 
     if(type === "user"){
 
-        div.className = "user-message";
+        messageBox.className =
+        "user-message";
+
+    } else {
+
+        messageBox.className =
+        "ai-message";
 
     }
 
-    else {
 
-        div.className = "ai-message";
 
-    }
+    messageBox.innerHTML = message;
 
 
 
-    div.innerHTML = message;
-
-
-    chatMessages.appendChild(div);
+    chatMessages.appendChild(messageBox);
 
 
 
@@ -92,8 +94,8 @@ function addMessage(message,type){
     chatMessages.scrollHeight;
 
 
-    return div;
 
+    return messageBox;
 
 }
 
@@ -103,20 +105,19 @@ function addMessage(message,type){
 
 
 
-
-// Typing animation
-
-
 function showTyping(){
 
 
-    const typing = document.createElement("div");
+    const typing =
+    document.createElement("div");
 
 
-    typing.className = "ai-message";
+    typing.className =
+    "ai-message";
 
 
-    typing.id = "typing";
+    typing.id =
+    "typing";
 
 
     typing.innerHTML =
@@ -126,13 +127,13 @@ function showTyping(){
     chatMessages.appendChild(typing);
 
 
-
     chatMessages.scrollTop =
     chatMessages.scrollHeight;
 
 
-
 }
+
+
 
 
 
@@ -144,13 +145,11 @@ function removeTyping(){
     document.getElementById("typing");
 
 
-
     if(typing){
 
         typing.remove();
 
     }
-
 
 }
 
@@ -158,10 +157,6 @@ function removeTyping(){
 
 
 
-
-
-
-// Send question to Groq AI
 
 
 async function askAI(){
@@ -174,20 +169,13 @@ async function askAI(){
 
     if(question === ""){
 
-
         return;
 
     }
 
 
 
-
-
-    // Show user message
-
-
     addMessage(question,"user");
-
 
 
     questionInput.value = "";
@@ -199,12 +187,11 @@ async function askAI(){
 
 
 
-
-    try {
-
+    try{
 
 
-        const response = await fetch("/ask",{
+        const response =
+        await fetch("/ask",{
 
 
             method:"POST",
@@ -215,21 +202,17 @@ async function askAI(){
 
                 "Content-Type":"application/json"
 
-
             },
 
 
             body:JSON.stringify({
 
-
                 question:question
-
 
             })
 
 
         });
-
 
 
 
@@ -247,19 +230,20 @@ async function askAI(){
 
 
         addMessage(
+
             data.answer,
+
             "ai"
+
         );
-
-
 
 
 
     }
 
 
-    catch(error){
 
+    catch(error){
 
 
         console.log(error);
@@ -272,7 +256,7 @@ async function askAI(){
 
         addMessage(
 
-        "Sorry, I cannot connect to DG Global AI right now. Please contact us on WhatsApp: +2347069575671",
+        "Sorry, the AI assistant is unavailable. Please contact us on WhatsApp: +2347069575671",
 
         "ai"
 
@@ -280,7 +264,6 @@ async function askAI(){
 
 
     }
-
 
 
 }
@@ -292,7 +275,7 @@ async function askAI(){
 
 
 
-// Press Enter to send
+// Press Enter to send AI question
 
 
 if(questionInput){
@@ -303,14 +286,113 @@ if(questionInput){
 
         if(event.key === "Enter"){
 
-
             askAI();
-
 
         }
 
 
     });
+
+
+}
+
+
+
+
+
+
+
+
+
+// ===============================
+// CUSTOMER REQUEST TO WHATSAPP
+// ===============================
+
+
+function sendRequest(){
+
+
+
+    const name =
+    document.getElementById("customer-name").value;
+
+
+
+    const service =
+    document.getElementById("service-needed").value;
+
+
+
+    const details =
+    document.getElementById("project-details").value;
+
+
+
+
+    if(
+        name === "" ||
+        service === "" ||
+        details === ""
+    ){
+
+
+        alert(
+        "Please complete all fields before sending."
+        );
+
+
+        return;
+
+
+    }
+
+
+
+
+
+
+
+    const message =
+
+`Hello Denis Godson Global Ventures 👋
+
+I would like to request your service.
+
+Name:
+${name}
+
+Service Needed:
+${service}
+
+Project Details:
+${details}
+
+Thank you.`;
+
+
+
+
+
+
+    const whatsappNumber =
+    "2347069575671";
+
+
+
+    const whatsappURL =
+
+    "https://wa.me/" +
+    whatsappNumber +
+    "?text=" +
+    encodeURIComponent(message);
+
+
+
+
+    window.open(
+        whatsappURL,
+        "_blank"
+    );
 
 
 }
@@ -337,14 +419,17 @@ sections.forEach(section=>{
 
     section.style.opacity="0";
 
+
     section.style.transform=
     "translateY(40px)";
+
 
     section.style.transition=
     "0.8s ease";
 
 
 });
+
 
 
 
@@ -411,6 +496,7 @@ if(footer){
 
 
     footer.innerHTML =
+
     `© ${year} Denis Godson Global Ventures. All Rights Reserved.`;
 
 }
