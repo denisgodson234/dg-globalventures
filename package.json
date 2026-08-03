@@ -1,21 +1,24 @@
 {
   "name": "denis-godson-global-ventures",
-  "version": "5.0.0",
-  "description": "Denis Godson Global Ventures - Branding, Digital Marketing, Graphic Design and AI Business Assistant Platform",
+  "version": "6.0.0",
+  "description": "Denis Godson Global Ventures - Branding, Digital Marketing, Graphic Design, AI Assistant and Authentication System",
 
   "main": "server.js",
 
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "node server.js"
   },
 
   "keywords": [
     "branding",
-    "digital marketing",
-    "graphic design",
+    "digital-marketing",
+    "graphic-design",
     "business",
-    "AI assistant",
-    "groq"
+    "ai",
+    "groq",
+    "supabase",
+    "authentication"
   ],
 
   "author": "Denis Godson Global Ventures",
@@ -23,9 +26,13 @@
   "license": "MIT",
 
   "dependencies": {
+    "@supabase/supabase-js": "^2.53.0",
+    "bcryptjs": "^3.0.2",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
-    "express": "^4.19.2",
-    "groq-sdk": "^0.7.0"
+    "express": "^4.21.2",
+    "groq-sdk": "^0.7.0",
+    "jsonwebtoken": "^9.0.2"
   }
 }
