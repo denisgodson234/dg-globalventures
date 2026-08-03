@@ -7,11 +7,11 @@
 // Import Supabase from CDN
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
-// Replace these with YOUR Supabase project values
-const SUPABASE_URL = https://mcsvqhbsllhcvpnrqwcc.supabase.co/rest/v1/;
-const SUPABASE_ANON_KEY = sb_publishable_qRQAaE4NjXL7UfRDfroMdg_l0EYID8-;
+// Your Supabase project values
+const SUPABASE_URL = "https://mcsvqhbsllhcvpnrqwcc.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_qRQAaE4NjXL7UfRDfroMdg_l0EYID8-";
 
-// Create the client
+// Create Supabase client
 export const supabase = createClient(
     SUPABASE_URL,
     SUPABASE_ANON_KEY
