@@ -1,23 +1,21 @@
 // ======================================
 // DENIS GODSON GLOBAL VENTURES
-// PREMIUM VERSION 5.2 SCRIPT
-// GROQ AI + WHATSAPP REQUEST SYSTEM
+// PREMIUM VERSION 6.0
+// AI ASSISTANT + WHATSAPP REQUEST SYSTEM
+// NO LOGIN / NO SIGN UP
 // ======================================
-
 
 
 // ===============================
 // MOBILE MENU
 // ===============================
 
-
 const menuBtn = document.querySelector(".menu-btn");
 const navLinks = document.querySelector(".nav-links");
 
+if (menuBtn) {
 
-if(menuBtn){
-
-    menuBtn.addEventListener("click",()=>{
+    menuBtn.addEventListener("click", () => {
 
         navLinks.classList.toggle("active");
 
@@ -26,10 +24,9 @@ if(menuBtn){
 }
 
 
+document.querySelectorAll(".nav-links a").forEach(link => {
 
-document.querySelectorAll(".nav-links a").forEach(link=>{
-
-    link.addEventListener("click",()=>{
+    link.addEventListener("click", () => {
 
         navLinks.classList.remove("active");
 
@@ -39,60 +36,48 @@ document.querySelectorAll(".nav-links a").forEach(link=>{
 
 
 
-
-
-
-
-
 // ===============================
 // AI CHATBOT SYSTEM
 // ===============================
 
-
 const chatMessages =
-document.getElementById("chat-messages");
-
+    document.getElementById("chat-messages");
 
 const questionInput =
-document.getElementById("user-question");
+    document.getElementById("user-question");
 
 
+// ===============================
+// ADD CHAT MESSAGE
+// ===============================
 
-
-
-function addMessage(message,type){
-
+function addMessage(message, type) {
 
     const messageBox =
-    document.createElement("div");
+        document.createElement("div");
 
 
-
-    if(type === "user"){
+    if (type === "user") {
 
         messageBox.className =
-        "user-message";
+            "user-message";
 
     } else {
 
         messageBox.className =
-        "ai-message";
+            "ai-message";
 
     }
-
 
 
     messageBox.innerHTML = message;
 
 
-
     chatMessages.appendChild(messageBox);
 
 
-
     chatMessages.scrollTop =
-    chatMessages.scrollHeight;
-
+        chatMessages.scrollHeight;
 
 
     return messageBox;
@@ -101,51 +86,49 @@ function addMessage(message,type){
 
 
 
+// ===============================
+// SHOW TYPING
+// ===============================
 
-
-
-
-function showTyping(){
-
+function showTyping() {
 
     const typing =
-    document.createElement("div");
+        document.createElement("div");
 
 
     typing.className =
-    "ai-message";
+        "ai-message";
 
 
     typing.id =
-    "typing";
+        "typing";
 
 
     typing.innerHTML =
-    "DG Global AI is typing...";
+        "DG Global AI is typing...";
 
 
     chatMessages.appendChild(typing);
 
 
     chatMessages.scrollTop =
-    chatMessages.scrollHeight;
-
+        chatMessages.scrollHeight;
 
 }
 
 
 
+// ===============================
+// REMOVE TYPING
+// ===============================
 
-
-
-function removeTyping(){
-
+function removeTyping() {
 
     const typing =
-    document.getElementById("typing");
+        document.getElementById("typing");
 
 
-    if(typing){
+    if (typing) {
 
         typing.remove();
 
@@ -155,152 +138,130 @@ function removeTyping(){
 
 
 
+// ===============================
+// ASK AI
+// ===============================
 
-
-
-
-async function askAI(){
-
+async function askAI() {
 
     const question =
-    questionInput.value.trim();
+        questionInput.value.trim();
 
 
-
-    if(question === ""){
+    if (question === "") {
 
         return;
 
     }
 
 
+    // Add user's message
+    addMessage(
+        question,
+        "user"
+    );
 
-    addMessage(question,"user");
 
-
+    // Clear input
     questionInput.value = "";
 
 
-
+    // Show typing
     showTyping();
 
 
-
-
-    try{
-
+    try {
 
         const response =
-        await fetch("/ask",{
+            await fetch("/ask", {
 
+                method: "POST",
 
-            method:"POST",
+                headers: {
 
+                    "Content-Type":
+                        "application/json"
 
-            headers:{
+                },
 
+                body: JSON.stringify({
 
-                "Content-Type":"application/json"
+                    question: question
 
-            },
+                })
 
-
-            body:JSON.stringify({
-
-                question:question
-
-            })
-
-
-        });
-
-
-
+            });
 
 
         const data =
-        await response.json();
-
-
+            await response.json();
 
 
         removeTyping();
 
 
+        if (data.answer) {
+
+            addMessage(
+                data.answer,
+                "ai"
+            );
+
+        } else {
+
+            addMessage(
+                "Sorry, I couldn't generate a response. Please try again.",
+                "ai"
+            );
+
+        }
+
+
+    }
+
+
+    catch (error) {
+
+        console.log(error);
+
+
+        removeTyping();
 
 
         addMessage(
 
-            data.answer,
+            "Sorry, the AI assistant is unavailable. Please contact us on WhatsApp: +2347069575671",
 
             "ai"
 
         );
 
-
-
     }
-
-
-
-    catch(error){
-
-
-        console.log(error);
-
-
-
-        removeTyping();
-
-
-
-        addMessage(
-
-        "Sorry, the AI assistant is unavailable. Please contact us on WhatsApp: +2347069575671",
-
-        "ai"
-
-        );
-
-
-    }
-
 
 }
 
 
 
+// ===============================
+// PRESS ENTER TO SEND AI QUESTION
+// ===============================
 
+if (questionInput) {
 
+    questionInput.addEventListener(
+        "keypress",
+        (event) => {
 
+            if (event.key === "Enter") {
 
+                askAI();
 
-// Press Enter to send AI question
-
-
-if(questionInput){
-
-
-    questionInput.addEventListener("keypress",(event)=>{
-
-
-        if(event.key === "Enter"){
-
-            askAI();
+            }
 
         }
-
-
-    });
-
+    );
 
 }
-
-
-
-
-
-
 
 
 
@@ -308,49 +269,58 @@ if(questionInput){
 // CUSTOMER REQUEST TO WHATSAPP
 // ===============================
 
-
-function sendRequest(){
-
+function sendRequest() {
 
 
     const name =
-    document.getElementById("customer-name").value;
+        document.getElementById(
+            "customer-name"
+        ).value.trim();
 
+
+    const email =
+        document.getElementById(
+            "customer-email"
+        ).value.trim();
+
+
+    const phone =
+        document.getElementById(
+            "customer-phone"
+        ).value.trim();
 
 
     const service =
-    document.getElementById("service-needed").value;
-
+        document.getElementById(
+            "service-needed"
+        ).value;
 
 
     const details =
-    document.getElementById("project-details").value;
+        document.getElementById(
+            "project-details"
+        ).value.trim();
 
 
 
-
-    if(
+    // Check required fields
+    if (
         name === "" ||
         service === "" ||
         details === ""
-    ){
-
+    ) {
 
         alert(
-        "Please complete all fields before sending."
+            "Please complete your name, service and project details before sending."
         );
 
-
         return;
-
 
     }
 
 
 
-
-
-
+    // Create WhatsApp message
 
     const message =
 
@@ -360,6 +330,12 @@ I would like to request your service.
 
 Name:
 ${name}
+
+Email:
+${email || "Not provided"}
+
+Phone:
+${phone || "Not provided"}
 
 Service Needed:
 ${service}
@@ -371,36 +347,32 @@ Thank you.`;
 
 
 
-
-
+    // WhatsApp number
 
     const whatsappNumber =
-    "2347069575671";
+        "2347069575671";
 
 
+
+    // Create WhatsApp URL
 
     const whatsappURL =
 
-    "https://wa.me/" +
-    whatsappNumber +
-    "?text=" +
-    encodeURIComponent(message);
+        "https://wa.me/" +
+        whatsappNumber +
+        "?text=" +
+        encodeURIComponent(message);
 
 
 
+    // Open WhatsApp
 
     window.open(
         whatsappURL,
         "_blank"
     );
 
-
 }
-
-
-
-
-
 
 
 
@@ -408,72 +380,81 @@ Thank you.`;
 // SCROLL ANIMATION
 // ===============================
 
-
 const sections =
-document.querySelectorAll("section");
+    document.querySelectorAll("section");
 
 
+sections.forEach(section => {
 
-sections.forEach(section=>{
+    section.style.opacity = "0";
 
+    section.style.transform =
+        "translateY(40px)";
 
-    section.style.opacity="0";
-
-
-    section.style.transform=
-    "translateY(40px)";
-
-
-    section.style.transition=
-    "0.8s ease";
-
+    section.style.transition =
+        "0.8s ease";
 
 });
 
 
 
+window.addEventListener(
+    "scroll",
+    () => {
+
+        sections.forEach(section => {
+
+            const position =
+                section.getBoundingClientRect()
+                    .top;
+
+
+            const screenHeight =
+                window.innerHeight;
+
+
+            if (
+                position <
+                screenHeight - 100
+            ) {
+
+                section.style.opacity = "1";
+
+                section.style.transform =
+                    "translateY(0)";
+
+            }
+
+        });
+
+    }
+);
 
 
 
-window.addEventListener("scroll",()=>{
+// ===============================
+// MAKE HERO VISIBLE IMMEDIATELY
+// ===============================
 
+window.addEventListener(
+    "load",
+    () => {
 
-    sections.forEach(section=>{
+        const firstSection =
+            document.querySelector("section");
 
+        if (firstSection) {
 
-        const position =
-        section.getBoundingClientRect().top;
+            firstSection.style.opacity =
+                "1";
 
-
-
-        const screenHeight =
-        window.innerHeight;
-
-
-
-
-        if(position < screenHeight - 100){
-
-
-            section.style.opacity="1";
-
-
-            section.style.transform=
-            "translateY(0)";
-
+            firstSection.style.transform =
+                "translateY(0)";
 
         }
 
-
-    });
-
-
-});
-
-
-
-
-
+    }
+);
 
 
 
@@ -481,38 +462,56 @@ window.addEventListener("scroll",()=>{
 // FOOTER YEAR UPDATE
 // ===============================
 
-
 const year =
-new Date().getFullYear();
-
+    new Date().getFullYear();
 
 
 const footer =
-document.querySelector("footer p");
+    document.querySelector(
+        ".footer-bottom p"
+    );
 
 
-
-if(footer){
-
+if (footer) {
 
     footer.innerHTML =
 
-    `© ${year} Denis Godson Global Ventures. All Rights Reserved.`;
+        `© ${year} Denis Godson Global Ventures. All Rights Reserved.`;
 
 }
+
+
+
 // ===============================
 // LOADER
 // ===============================
 
-window.addEventListener("load", () => {
-    const loader = document.querySelector(".loader");
+window.addEventListener(
+    "load",
+    () => {
 
-    if (loader) {
-        loader.style.opacity = "0";
-        loader.style.pointerEvents = "none";
+        const loader =
+            document.querySelector(
+                ".loader"
+            );
 
-        setTimeout(() => {
-            loader.style.display = "none";
-        }, 600);
+
+        if (loader) {
+
+            loader.style.opacity = "0";
+
+            loader.style.pointerEvents =
+                "none";
+
+
+            setTimeout(() => {
+
+                loader.style.display =
+                    "none";
+
+            }, 600);
+
+        }
+
     }
-});
+);
